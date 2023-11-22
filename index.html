@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>randam</title>
+</head><body>
+
+<h1>random</h1>
+<select id=len>
+  <option value=8>8byte 64bit</option>
+  <option value=16 selected>16byte 128bit</option>
+  <option value=32>32byte 256bit</option>
+  <option value=64>64byte 512bit</option>
+</select>
+<input id=rnd><br>
+<button id=regen>regen</button>
+<hr>
+<a href=https://github.com/code4fukui/randam>src on GitHub</a>
+
+<script type="module">
+import { Base16 } from "https://code4fukui.github.io/Base16/Base16.js";
+
+const put = () => {
+  const buf = new Uint8Array(len.value);
+  crypto.getRandomValues(buf);
+  rnd.value = Base16.encode(buf);
+};
+regen.onclick = len.oninput = () => put();
+put();
+
+</script>
+
+<style>
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+* {
+  margin: 1em 0;
+}
+#len, #rnd, #regen {
+  font-size: 120%;
+  padding: .3em;
+}
+#rnd {
+  width: 36em;
+}
+</style>
+
+</body></html>
